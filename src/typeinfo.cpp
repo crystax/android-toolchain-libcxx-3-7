@@ -16,6 +16,8 @@
 #include <cxxabi.h>
 #elif defined(LIBCXXRT) || __has_include(<cxxabi.h>)
 #include <cxxabi.h>
+#elif defined(__ANDROID__)
+#include <cxxabi.h>
 #endif
 
 #include "typeinfo"
