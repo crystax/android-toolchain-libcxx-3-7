@@ -28,7 +28,7 @@
 #include "__sso_allocator"
 #if defined(_LIBCPP_MSVCRT) || defined(__MINGW32__)
 #include "support/win32/locale_win32.h"
-#elif !defined(__ANDROID__)
+#elif !defined(__ANDROID__) || defined(__CRYSTAX__)
 #include <langinfo.h>
 #endif
 #include <stdlib.h>
@@ -1102,7 +1102,7 @@ ctype<char>::classic_table()  _NOEXCEPT
 const ctype<char>::mask*
 ctype<char>::classic_table()  _NOEXCEPT
 {
-#if defined(__APPLE__) || defined(__FreeBSD__)
+#if defined(__APPLE__) || defined(__FreeBSD__) || (defined(__ANDROID__) && defined(__CRYSTAX__))
     return _DefaultRuneLocale.__runetype;
 #elif defined(__NetBSD__)
     return _C_ctype_tab_ + 1;

@@ -26,7 +26,7 @@
 #elif defined(__ANDROID__)
 // Android gained the locale aware functions in L (API level 21)
 # include <android/api-level.h>
-# if __ANDROID_API__ <= 20
+# if __ANDROID_API__ <= 20 && !defined(__CRYSTAX__)
 #  include <support/android/locale_bionic.h>
 # endif
 #elif defined(__sun__)
@@ -357,7 +357,7 @@ public:
 #elif defined(__APPLE__) || defined(__FreeBSD__) || defined(__EMSCRIPTEN__) || defined(__NetBSD__)
 # ifdef __APPLE__
     typedef __uint32_t mask;
-# elif defined(__FreeBSD__)
+# elif defined(__FreeBSD__) || (defined(__ANDROID__) && defined(__CRYSTAX__))
     typedef unsigned long mask;
 # elif defined(__EMSCRIPTEN__) ||  defined(__NetBSD__)
     typedef unsigned short mask;

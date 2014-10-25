@@ -353,6 +353,9 @@ typedef __char32_t char32_t;
 #define _LIBCPP_HAS_C11_FEATURES
 #elif defined(__ANDROID__)
 #define _LIBCPP_HAS_QUICK_EXIT
+#if defined(__CRYSTAX__)
+#define _LIBCPP_HAS_C11_FEATURES
+#endif
 #elif defined(__linux__)
 #include <features.h>
 #if __GLIBC_PREREQ(2, 15)
@@ -665,7 +668,7 @@ template <unsigned> struct __static_assert_check {};
 #define _LIBCPP_LOCALE__L_EXTENSIONS 1
 #endif
 
-#if !defined(_WIN32) && !defined(__ANDROID__) && !defined(_NEWLIB_VERSION) && \
+#if !defined(_WIN32) && (!defined(__ANDROID__) || defined(__CRYSTAX__)) && !defined(_NEWLIB_VERSION) && \
     !defined(__CloudABI__)
 #define _LIBCPP_HAS_CATOPEN 1
 #endif
@@ -674,7 +677,7 @@ template <unsigned> struct __static_assert_check {};
 #define _DECLARE_C99_LDBL_MATH 1
 #endif
 
-#if defined(__APPLE__) || defined(__FreeBSD__)
+#if defined(__APPLE__) || defined(__FreeBSD__) || (defined(__ANDROID__) && defined(__CRYSTAX__))
 #define _LIBCPP_HAS_DEFAULTRUNELOCALE
 #endif
 
