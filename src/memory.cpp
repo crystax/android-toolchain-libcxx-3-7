@@ -27,14 +27,22 @@ template <class T>
 inline T
 increment(T& t) _NOEXCEPT
 {
+#if __arm__ && __ARM_ARCH < 7
+    return __sync_add_and_fetch(&t, 1);
+#else
     return __libcpp_atomic_add(&t, 1, _AO_Relaxed);
+#endif
 }
 
 template <class T>
 inline T
 decrement(T& t) _NOEXCEPT
 {
+#if __arm__ && __ARM_ARCH < 7
+    return __sync_add_and_fetch(&t, -1);
+#else
     return __libcpp_atomic_add(&t, -1, _AO_Acq_Rel);
+#endif
 }
 
 }  // namespace
