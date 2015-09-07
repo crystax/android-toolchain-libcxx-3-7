@@ -215,7 +215,6 @@
 
 #ifndef _LIBCPP_INLINE_VISIBILITY
 #define _LIBCPP_INLINE_VISIBILITY __attribute__ ((__visibility__("hidden"), __always_inline__))
-#define _LIBCPP_INLINE_VISIBILITY_EXCEPT_GCC49 _LIBCPP_INLINE_VISIBILITY
 #endif
 
 #ifndef _LIBCPP_EXCEPTION_ABI
@@ -224,7 +223,6 @@
 
 #ifndef _LIBCPP_ALWAYS_INLINE
 #define _LIBCPP_ALWAYS_INLINE  __attribute__ ((__visibility__("hidden"), __always_inline__))
-#define _LIBCPP_ALWAYS_INLINE_EXCEPT_GCC49 _LIBCPP_ALWAYS_INLINE
 #endif
 
 #if defined(__clang__)
@@ -403,14 +401,6 @@ namespace std {
 
 #elif defined(__GNUC__)
 
-// FixME: GCC4.9 fails some always_inline cases
-# if (_GNUC_VER == 409)
-#undef _LIBCPP_ALWAYS_INLINE_EXCEPT_GCC49
-#define _LIBCPP_ALWAYS_INLINE_EXCEPT_GCC49 inline
-#undef _LIBCPP_INLINE_VISIBILITY_EXCEPT_GCC49
-#define _LIBCPP_INLINE_VISIBILITY_EXCEPT_GCC49
-#endif
-
 #define _ALIGNAS(x) __attribute__((__aligned__(x)))
 #define _ALIGNAS_TYPE(x) __attribute__((__aligned__(__alignof(x))))
 
@@ -531,7 +521,7 @@ using namespace _LIBCPP_NAMESPACE __attribute__((__strong__));
 #define __gxx__cxx_lambdas                        !defined(_LIBCPP_HAS_NO_LAMBDAS)
 #define __gxx__cxx_noexcept                       0  // Not sure, doesn't matter.
 #define __gxx__cxx_nullptr                        !defined(_LIBCPP_HAS_NO_NULLPTR)
-#define __gxx__cxx_reference_qualified_functions  (_GNUC_VER >= 408)  // Since 4.8.1
+#define __gxx__cxx_reference_qualified_functions  (_GNUC_VER >= 408)  // Not if 4.7 work. 4.6 certainly not.  Also see usage in libcxx/include/type_traits
 #ifdef _LIBCPP_NO_RTTI
 #define __gxx__cxx_rtti                           0
 #else
